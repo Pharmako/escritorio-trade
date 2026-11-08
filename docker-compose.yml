@@ -1,0 +1,13 @@
+version: '3'
+services:
+  freqtrade:
+    image: freqtradeorg/freqtrade:stable
+    restart: unless-stopped
+    container_name: freqtrade_nfi
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    # Usamos o comando trade com dry-run ativado (dinheiro de mentira)
+    command: >
+      trade --strategy NostalgiaForInfinityX8 --config /freqtrade/user_data/config.json --dry-run 
