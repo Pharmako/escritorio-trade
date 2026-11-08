@@ -50,14 +50,14 @@
   "api_server": {
     "enabled": true,
     "listen_ip_address": "0.0.0.0",
-    "listen_port": 8080,
+    "listen_port": 8081,
     "verbosity": "error",
     "enable_openapi": false,
-    "jwt_secret_key": "freqtrade-nfi-local-jwt-secret-key",
+    "jwt_secret_key": "chave-secreta-escritorio",
     "ws_token": "freqtrade-nfi-local-ws-token",
-    "CORS_origins": [],
-    "username": "freqtrader",
-    "password": "SuperSecurePassword"
+    "CORS_origins": ["*"],
+    "username": "chefe",
+    "password": "123"
   },
   "bot_name": "freqtrade_nfi",
   "initial_state": "running",

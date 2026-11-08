@@ -1,13 +1,53 @@
-version: '3'
+version: '3.8'
+
 services:
   freqtrade:
     image: freqtradeorg/freqtrade:stable
     restart: unless-stopped
     container_name: freqtrade_nfi
     ports:
-      - "127.0.0.1:8081:8080"
+      - "8081:8081"
     volumes:
       - ./user_data:/freqtrade/user_data
-    # Usamos o comando trade com dry-run ativado (dinheiro de mentira)
     command: >
-      trade --strategy NostalgiaForInfinityX8 --config /freqtrade/user_data/config.json --dry-run 
+      trade --strategy NostalgiaForInfinityX8 --config /freqtrade/user_data/config.json --dry-run
+    networks:
+      - escritorio_net
+
+  gerente-ia:
+    build:
+      context: ./gerente-ia
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: gerente_ia
+    ports:
+      - "8090:8090"
+    env_file:
+      - path: ./gerente-ia/.env
+        required: false
+    environment:
+      - FREQTRADE_API_URL=http://freqtrade:8081
+      - FREQTRADE_USERNAME=chefe
+      - FREQTRADE_PASSWORD=123
+      - PORT=8090
+    depends_on:
+      - freqtrade
+    networks:
+      - escritorio_net
+
+  escritorio-web:
+    build:
+      context: ./escritorio-web
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: escritorio_web
+    ports:
+      - "5173:5173"
+    depends_on:
+      - gerente-ia
+    networks:
+      - escritorio_net
+
+networks:
+  escritorio_net:
+    driver: bridge
