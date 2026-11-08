@@ -296,53 +296,134 @@ export const PlantPot: React.FC<{ position: [number, number, number]; scale?: nu
 );
 
 /**
- * CACHORRINHO LOW-POLY DEITADO AO LADO DA MESA 1
+ * GATO LARANJA LOW-POLY COM BARRIGA BRANCA E MANCHAS CINZAS AO LADO DA MESA 1
  */
 export const LowPolyDog: React.FC<{ position: [number, number, number] }> = ({ position }) => {
-  const tailRef = useRef<THREE.Mesh | null>(null);
+  const tailRef = useRef<THREE.Group | null>(null);
 
   useFrame(({ clock }) => {
     if (tailRef.current) {
-      tailRef.current.rotation.z = Math.sin(clock.getElapsedTime() * 7) * 0.35;
+      tailRef.current.rotation.y = Math.sin(clock.getElapsedTime() * 3.5) * 0.4;
+      tailRef.current.rotation.z = 0.4 + Math.cos(clock.getElapsedTime() * 2.5) * 0.15;
     }
   });
 
   return (
-    <group position={position} rotation={[0, 0.5, 0]}>
-      {/* Tapetinho do cachorro */}
-      <mesh position={[0, 0.02, 0]} receiveShadow>
-        <cylinderGeometry args={[0.55, 0.55, 0.04, 16]} />
-        <meshStandardMaterial color="#cbd5e1" roughness={0.9} />
+    <group position={position} rotation={[0, 0.55, 0]}>
+      {/* Caminha / Almofada redonda do gato */}
+      <mesh position={[0, 0.025, 0]} receiveShadow>
+        <cylinderGeometry args={[0.56, 0.58, 0.05, 18]} />
+        <meshStandardMaterial color="#334155" roughness={0.85} />
       </mesh>
-      {/* Corpo deitado */}
-      <mesh position={[0, 0.18, 0]} castShadow>
-        <boxGeometry args={[0.52, 0.24, 0.32]} />
-        <meshStandardMaterial color="#d97706" roughness={0.7} flatShading />
+      <mesh position={[0, 0.055, 0]} receiveShadow>
+        <cylinderGeometry args={[0.46, 0.46, 0.02, 18]} />
+        <meshStandardMaterial color="#475569" roughness={0.9} />
       </mesh>
-      {/* Cabeça */}
-      <mesh position={[0.28, 0.32, 0]} castShadow>
-        <boxGeometry args={[0.24, 0.22, 0.24]} />
-        <meshStandardMaterial color="#f59e0b" roughness={0.7} flatShading />
+
+      {/* Corpo principal Laranja (costas e laterais superiores) */}
+      <mesh position={[0, 0.21, 0]} castShadow>
+        <boxGeometry args={[0.48, 0.18, 0.28]} />
+        <meshStandardMaterial color="#f97316" roughness={0.65} flatShading />
       </mesh>
-      {/* Focinho */}
-      <mesh position={[0.42, 0.28, 0]} castShadow>
-        <boxGeometry args={[0.12, 0.1, 0.12]} />
-        <meshStandardMaterial color="#fef3c7" roughness={0.7} />
+
+      {/* Barriga e Peito Brancos (visível na parte inferior e frontal do peito) */}
+      <mesh position={[0.04, 0.11, 0]} castShadow>
+        <boxGeometry args={[0.46, 0.1, 0.29]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.55} />
       </mesh>
-      {/* Orelhas */}
-      <mesh position={[0.24, 0.45, 0.1]} castShadow>
-        <boxGeometry args={[0.08, 0.12, 0.06]} />
-        <meshStandardMaterial color="#78350f" />
+      <mesh position={[0.23, 0.2, 0]} castShadow>
+        <boxGeometry args={[0.1, 0.18, 0.24]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.55} />
       </mesh>
-      <mesh position={[0.24, 0.45, -0.1]} castShadow>
-        <boxGeometry args={[0.08, 0.12, 0.06]} />
-        <meshStandardMaterial color="#78350f" />
+
+      {/* Manchas Cinzas nas costas, laterais e barriga */}
+      <mesh position={[-0.06, 0.305, 0.04]} castShadow>
+        <boxGeometry args={[0.16, 0.02, 0.14]} />
+        <meshStandardMaterial color="#64748b" roughness={0.65} />
       </mesh>
-      {/* Rabinho abanando */}
-      <mesh ref={tailRef} position={[-0.28, 0.26, 0]} castShadow>
-        <boxGeometry args={[0.16, 0.07, 0.07]} />
-        <meshStandardMaterial color="#b45309" />
+      <mesh position={[0.1, 0.295, -0.06]} castShadow>
+        <boxGeometry args={[0.12, 0.02, 0.11]} />
+        <meshStandardMaterial color="#94a3b8" roughness={0.65} />
       </mesh>
+      <mesh position={[-0.08, 0.18, 0.146]} castShadow>
+        <boxGeometry args={[0.14, 0.1, 0.015]} />
+        <meshStandardMaterial color="#64748b" roughness={0.65} />
+      </mesh>
+      <mesh position={[0.06, 0.12, -0.148]} castShadow>
+        <boxGeometry args={[0.13, 0.08, 0.015]} />
+        <meshStandardMaterial color="#94a3b8" roughness={0.65} />
+      </mesh>
+
+      {/* Patinhas Brancas dianteiras e traseiras esticadas */}
+      <mesh position={[0.28, 0.08, 0.09]} castShadow>
+        <boxGeometry args={[0.14, 0.07, 0.08]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      <mesh position={[0.28, 0.08, -0.09]} castShadow>
+        <boxGeometry args={[0.14, 0.07, 0.08]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      <mesh position={[-0.22, 0.08, 0.11]} castShadow>
+        <boxGeometry args={[0.12, 0.07, 0.08]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      <mesh position={[-0.22, 0.08, -0.11]} castShadow>
+        <boxGeometry args={[0.12, 0.07, 0.08]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+
+      {/* Cabeça de Gato Laranja */}
+      <mesh position={[0.27, 0.34, 0]} castShadow>
+        <boxGeometry args={[0.22, 0.21, 0.24]} />
+        <meshStandardMaterial color="#f97316" roughness={0.6} flatShading />
+      </mesh>
+      {/* Mancha Cinza na testa/cabeça */}
+      <mesh position={[0.28, 0.448, -0.04]} castShadow>
+        <boxGeometry args={[0.11, 0.02, 0.1]} />
+        <meshStandardMaterial color="#64748b" />
+      </mesh>
+
+      {/* Bochechas Brancas e Focinho */}
+      <mesh position={[0.37, 0.29, 0]} castShadow>
+        <boxGeometry args={[0.06, 0.09, 0.16]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      {/* Narizinho Rosa */}
+      <mesh position={[0.405, 0.32, 0]}>
+        <boxGeometry args={[0.02, 0.03, 0.04]} />
+        <meshBasicMaterial color="#f472b6" />
+      </mesh>
+      {/* Olhos Verdes de Gato */}
+      <mesh position={[0.382, 0.36, 0.065]}>
+        <boxGeometry args={[0.02, 0.04, 0.04]} />
+        <meshBasicMaterial color="#4ade80" />
+      </mesh>
+      <mesh position={[0.382, 0.36, -0.065]}>
+        <boxGeometry args={[0.02, 0.04, 0.04]} />
+        <meshBasicMaterial color="#4ade80" />
+      </mesh>
+
+      {/* Orelhas Pontudas de Gato (Cones triangulares) */}
+      <mesh position={[0.25, 0.49, 0.08]} rotation={[0, 0, -0.15]} castShadow>
+        <coneGeometry args={[0.055, 0.12, 4]} />
+        <meshStandardMaterial color="#ea580c" flatShading />
+      </mesh>
+      <mesh position={[0.25, 0.49, -0.08]} rotation={[0, 0, -0.15]} castShadow>
+        <coneGeometry args={[0.055, 0.12, 4]} />
+        <meshStandardMaterial color="#64748b" flatShading />
+      </mesh>
+
+      {/* Rabo Longo de Gato Laranja com Ponta Cinza/Branca balançando suave */}
+      <group ref={tailRef} position={[-0.24, 0.22, 0]}>
+        <mesh position={[-0.12, 0.08, 0]} rotation={[0, 0, -0.55]} castShadow>
+          <cylinderGeometry args={[0.032, 0.038, 0.28, 8]} />
+          <meshStandardMaterial color="#f97316" />
+        </mesh>
+        <mesh position={[-0.22, 0.2, 0]} rotation={[0, 0, -0.2]} castShadow>
+          <cylinderGeometry args={[0.028, 0.032, 0.16, 8]} />
+          <meshStandardMaterial color="#64748b" />
+        </mesh>
+      </group>
     </group>
   );
 };
